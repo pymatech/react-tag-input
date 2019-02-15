@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap-css-only';
-import './react-tag-input.css';
-import { TagInput } from "./TagInput"
+import './components/TagInput.css';
+import TagInput from "./components/TagInput"
 
 class App extends Component {
   render() {

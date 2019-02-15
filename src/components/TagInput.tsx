@@ -1,9 +1,10 @@
-import React, { KeyboardEvent } from "react"
+import React, { KeyboardEvent } from "react";
+import "./TagInput.css";
 
-export class TagInput extends React.Component<{ className?: string, placeholder?: string }, { items: string[], input: string, focused: boolean }> {
-  container: any;
-  inputControl: any;
-  focusTimeoutId: any = undefined;
+export default class TagInput extends React.Component<{ className?: string, placeholder?: string }, { items: string[], input: string, focused: boolean }> {
+  private container: any;
+  private inputControl: any;
+  private focusTimeoutId: any = undefined;
 
   constructor(props: any) {
     super(props);
