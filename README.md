@@ -1,7 +1,7 @@
 # react-tag-input
 
 ![](https://img.shields.io/github/release/pymatech/react-tag-input.svg?style=plastic)
-![](https://img.shields.io/npm/v/pymatech/react-tag-input/latest.svg?style=plastic)
+![](https://img.shields.io/npm/v/@pymatech/react-tag-input/latest.svg?style=plastic)
 ![](https://img.shields.io/github/license/pymatech/react-tag-input.svg?style=plastic)
 
 A Bootstrap v4 CSS compatible tag input component for React
