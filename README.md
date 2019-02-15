@@ -4,13 +4,13 @@ A Bootstrap v4 CSS compatible tag input component for React
 
 ## Installation
 
-`npm install --save react-tag-input`
+`npm install --save pymatech-react-tag-input`
 
 ## How to use
 
 Import the component where you wish to use it
 
-`import TagInput from "react-tag-input"`
+`import TagInput from "pymatech-react-tag-input"`
 
 Basic syntax for the component
 
