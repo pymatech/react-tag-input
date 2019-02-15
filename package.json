@@ -1,17 +1,28 @@
 {
   "name": "pymatech-react-tag-input",
   "version": "0.1.0",
+  "description": "A React Bootstrap4 tag input component",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pymatech/react-tag-input.git"
+  },
+  "author": {
+    "name": "Pymatech"
+  },
   "private": false,
-  "dependencies": {
+  "license": "MIT",
+  "devDependencies": {
     "@types/jest": "24.0.5",
     "@types/node": "11.9.4",
     "@types/react": "16.8.3",
     "@types/react-dom": "16.8.1",
-    "bootstrap-css-only": "^4.3.1",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
     "react-scripts": "2.1.5",
     "typescript": "3.3.3"
+  },
+  "dependencies": {
+    "bootstrap-css-only": "^4.3.1",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2"
   },
   "scripts": {
     "start": "react-scripts start",
