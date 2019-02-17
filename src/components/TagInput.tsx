@@ -1,16 +1,17 @@
 import React, { KeyboardEvent } from "react";
 import "./TagInput.css";
+import { EventEmitter } from "events";
 
-export default class TagInput extends React.Component<{ className?: string, placeholder?: string }, { items: string[], input: string, focused: boolean }> {
+export default class TagInput extends React.Component<{ className?: string, placeholder?: string, value?:string, onChange?: (value:string) => void }, { items: string[], input: string, focused: boolean }> {
   private container: any;
   private inputControl: any;
   private focusTimeoutId: any = undefined;
 
-  constructor(props: any) {
+  constructor(props: { className?: string, placeholder?: string, value?:string, onChange?: (value:string) => void }) {
     super(props);
 
     this.state = {
-      items: [],
+      items: props.value ? props.value.split(" ") : [],
       input: "",
       focused: false
     };
@@ -97,15 +98,25 @@ export default class TagInput extends React.Component<{ className?: string, plac
     }
   }
 
+  raiseChange(items:string[]){
+    if (this.props.onChange){
+      this.props.onChange(items.join(" "));
+    }
+  }
+
   handleInputKeyDown(evt: React.KeyboardEvent<HTMLInputElement>) {
     if (evt.keyCode === 13) {
       let inputControl: HTMLInputElement = evt.target as HTMLInputElement;
       const value: string = inputControl.value;
 
+      let items : string[] = [...this.state.items, value];
+
       this.setState(state => ({
-        items: [...state.items, value],
+        items: items,
         input: ""
       }));
+
+      this.raiseChange(items);
     }
 
     if (
@@ -113,19 +124,22 @@ export default class TagInput extends React.Component<{ className?: string, plac
       evt.keyCode === 8 &&
       !this.state.input.length
     ) {
+      let items : string[] = this.state.items.slice(0, this.state.items.length - 1);
       this.setState(state => ({
-        items: state.items.slice(0, state.items.length - 1)
+        items: items
       }));
+      this.raiseChange(items);
     }
   }
 
   handleRemoveItem(index: number) {
     return () => {
+      let items : string[] = this.state.items.filter((item, i) => i !== index);
       this.setState(state => ({
-        items: state.items.filter((item, i) => i !== index)
+        items: items
       }));
-
       this.inputControl.focus();
+      this.raiseChange(items);      
     };
   }
 }
