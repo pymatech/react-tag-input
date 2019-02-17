@@ -2,7 +2,7 @@ import React, { KeyboardEvent } from "react";
 import "./TagInput.css";
 import { EventEmitter } from "events";
 
-export default class TagInput extends React.Component<{ className?: string, placeholder?: string, value?:string, onChange?: (value:string) => void }, { items: string[], input: string, focused: boolean }> {
+export default class TagInput extends React.Component<{ className?: string, placeholder?: string, value?:string, onChange?: (value:string) => void, separator?:string }, { items: string[], input: string, focused: boolean }> {
   private container: any;
   private inputControl: any;
   private focusTimeoutId: any = undefined;
@@ -11,7 +11,7 @@ export default class TagInput extends React.Component<{ className?: string, plac
     super(props);
 
     this.state = {
-      items: props.value ? props.value.split(" ") : [],
+      items: props.value ? props.value.split((this.props.separator) ? this.props.separator : " ") : [],
       input: "",
       focused: false
     };
@@ -100,7 +100,7 @@ export default class TagInput extends React.Component<{ className?: string, plac
 
   raiseChange(items:string[]){
     if (this.props.onChange){
-      this.props.onChange(items.join(" "));
+      this.props.onChange(items.join((this.props.separator) ? this.props.separator : " "));
     }
   }
 

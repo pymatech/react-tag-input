@@ -26,5 +26,6 @@ Basic syntax for the component
 | ------      | :--------------------------------------------------------: | :---------------: | :------------------------------: |
 | className   | CSS classes to apply to the outer element                  |  *empty string*   | form-control                     |
 | placeholder | Text to display when there are no tags                     |  *empty string*   | Enter tags...                    |
+| separator   | Separator to be used between items in the value prop       | " "               | ","                              |
 | value       | Initial value used to populate the tags                    |  *empty string*   | Dodge Ford Chevy                 |
 | onChange    | Handler that receives the updated string value of the tags |                   | { (value) => console.log(value)} |
