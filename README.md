@@ -18,14 +18,24 @@ Import the component where you wish to use it
 
 Basic syntax for the component
 
-`<TagInput className="form-control form-group" placeholder="Enter tags..." />`
+`<TagInput className="form-control form-group" placeholder="Enter tags..." allowAddNew={true} />`
+
+### Notes
+
+* Duplicate tags are disallowed
+* Pressing `<ENTER>` will attempt to add a tag
+* Pressing the separator will attempt to add a tag
+* On leaving the form field any partially entered tag name will be cleared
+* Pressing `<ENTER>` when no input is partially entered will allow a form to submit
 
 ### Props
 
-| _Prop_       | _Description_                                              | _Default value_   | _Example_                        |
-| ------       | :--------------------------------------------------------: | :---------------: | :------------------------------: |
-| className    | CSS classes to apply to the outer element                  |  *empty string*   | form-control                     |
-| placeholder  | Text to display when there are no tags                     |  *empty string*   | Enter tags...                    |
-| separator    | Separator to be used between items in the value prop       | " "               | ","                              |
-| defaultValue | Initial value used to populate the tags                    |  *empty string*   | Dodge Ford Chevy                 |
-| onChange     | Handler that receives the updated string value of the tags |                   | { (value) => console.log(value)} |
+| _Prop_       | _Description_                                                           | _Default value_          | _Example_                        |
+| ------       | :---------------------------------------------------------------------: | :----------------------: | :------------------------------: |
+| allowNewTags | If *true* tag creation is allowed, otherwise existing tags must be used | *false*                  | true                             |
+| className    | CSS classes to apply to the outer element                               | *empty string*           | form-control                     |
+| defaultValue | Initial value used to populate the tags                                 | *empty string*           | Dodge Ford Chevy                 |
+| onChange     | Handler that receives the updated string value of the tags              | *undefined*              | { (value) => console.log(value)} |
+| placeholder  | Text to display when there are no tags                                  | *empty string*           | Enter tags...                    |
+| separator    | Separator to be used between items in the value prop                    | " "                      | ","                              |
+| tags         | List of accepted tags                                                   | *undefined*              | ["Dodge","Ford","Chevy"]         |

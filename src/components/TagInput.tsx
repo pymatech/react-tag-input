@@ -7,11 +7,12 @@ interface ITagInputProps {
   placeholder?: string;
   defaultValue?:string;
   onChange?: (value:string) => void;
-  separator?:string
+  separator?:string;
+  tags?:string[];
+  allowNewTags?:boolean;
 }
 
 export default class TagInput extends React.Component<ITagInputProps, { items: string[], input: string, focused: boolean }> {
-  private container: any;
   private inputControl: any;
   private focusTimeoutId: any = undefined;
 
@@ -24,10 +25,10 @@ export default class TagInput extends React.Component<ITagInputProps, { items: s
       focused: false
     };
 
-    this.container = React.createRef();
     this.inputControl = React.createRef();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
+    this.handleInputKeyPress = this.handleInputKeyPress.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
     this.grabFocus = this.grabFocus.bind(this);
@@ -44,7 +45,6 @@ export default class TagInput extends React.Component<ITagInputProps, { items: s
       <div
         className={this.props.className + " custom-control tag-input"}
         tabIndex={-1}
-        ref={container => (this.container = container)}
         onFocus={this.handleFocus}
         onClick={this.grabFocus}
         onBlur={this.handleBlur}
@@ -67,6 +67,7 @@ export default class TagInput extends React.Component<ITagInputProps, { items: s
           value={this.state.input}
           onChange={this.handleInputChange}
           onKeyDown={this.handleInputKeyDown}
+          onKeyPress={this.handleInputKeyPress}
         />
         </div>
       </div>
@@ -74,7 +75,11 @@ export default class TagInput extends React.Component<ITagInputProps, { items: s
   }
 
   private handleInputChange(evt: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ input: evt.target.value });
+    if (evt.target.value.indexOf((this.props.separator) ? this.props.separator : " ")>=0){
+
+    } else {
+      this.setState({ input: evt.target.value });
+    }
   }
 
   private handleBlur() {
@@ -83,7 +88,7 @@ export default class TagInput extends React.Component<ITagInputProps, { items: s
 
     this.focusTimeoutId = setTimeout(() => {
       if (this.state.focused) {
-        this.setState({ focused: false });
+        this.setState({ focused: false, input:"" });
       }
     }, 0);
   }
@@ -112,12 +117,15 @@ export default class TagInput extends React.Component<ITagInputProps, { items: s
     }
   }
 
-  private handleInputKeyDown(evt: React.KeyboardEvent<HTMLInputElement>) {
-    if (evt.keyCode === 13) {
-      let inputControl: HTMLInputElement = evt.target as HTMLInputElement;
-      const value: string = inputControl.value;
+  private addNewTag(text:string):void {
 
-      let items : string[] = [...this.state.items, value];
+    //No duplicates allowed
+    if (this.state.items.includes(text)){
+      return;
+    }
+
+    if (this.props.allowNewTags === true) {
+      let items : string[] = [...this.state.items, text];
 
       this.setState(state => ({
         items: items,
@@ -125,18 +133,48 @@ export default class TagInput extends React.Component<ITagInputProps, { items: s
       }));
 
       this.raiseChange(items);
-    }
+    } else {
+      if (this.props.tags && this.props.tags.includes(text)){
+        let items : string[] = [...this.state.items, text];
 
-    if (
-      this.state.items.length &&
-      evt.keyCode === 8 &&
-      !this.state.input.length
-    ) {
-      let items : string[] = this.state.items.slice(0, this.state.items.length - 1);
-      this.setState(state => ({
-        items: items
-      }));
-      this.raiseChange(items);
+        this.setState(state => ({
+          items: items,
+          input: ""
+        }));
+  
+        this.raiseChange(items);
+      }
+    }
+  }
+
+  private handleInputKeyPress(evt: React.KeyboardEvent<HTMLInputElement>) {
+    //Any input is allowed if new tags are allowed
+    if (this.props.allowNewTags === true) {
+      return;
+    }
+    if (evt.keyCode != 13 && evt.keyCode != 8){
+      //only allow input if an item contains the text
+    }
+  }
+
+  private handleInputKeyDown(evt: React.KeyboardEvent<HTMLInputElement>) {
+    if (evt.keyCode === 13 || evt.key === (this.props.separator ? this.props.separator : " ")) {
+      let inputControl: HTMLInputElement = evt.target as HTMLInputElement;
+      const value: string = inputControl.value.trim();
+      if (value.length>0) {
+        this.addNewTag(value);
+        evt.nativeEvent.preventDefault();
+        evt.nativeEvent.stopPropagation();
+      }
+
+    } else if (evt.keyCode === 8){
+      if (this.state.items.length && !this.state.input.length) {
+        let items : string[] = this.state.items.slice(0, this.state.items.length - 1);
+        this.setState(state => ({
+          items: items
+        }));
+        this.raiseChange(items);
+      }
     }
   }
 
@@ -147,7 +185,7 @@ export default class TagInput extends React.Component<ITagInputProps, { items: s
         items: items
       }));
       this.inputControl.focus();
-      this.raiseChange(items);      
+      this.raiseChange(items);
     };
   }
 }
