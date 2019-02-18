@@ -14,7 +14,7 @@ class App extends Component {
           <form className="p-2">
             <input type="text" className="form-control form-group" placeholder="Enter something here..."/>
             <p className="text-muted">Type in a tag below and press Enter to add it</p>
-            <TagInput className="form-control form-group" placeholder="Enter tags..." value="abc,def" separator=","  onChange={ (value) => console.log(value)}/>
+            <TagInput className="form-control form-group" placeholder="Enter tags..." defaultValue="abc,def" separator=","  onChange={ (value) => console.log(value)}/>
             <input type="text" className="form-control form-group" placeholder="Enter something else here..."/>
           </form>
         </header>

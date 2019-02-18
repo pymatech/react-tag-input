@@ -2,16 +2,24 @@ import React, { KeyboardEvent } from "react";
 import "./TagInput.css";
 import { EventEmitter } from "events";
 
-export default class TagInput extends React.Component<{ className?: string, placeholder?: string, value?:string, onChange?: (value:string) => void, separator?:string }, { items: string[], input: string, focused: boolean }> {
+interface ITagInputProps {
+  className?: string;
+  placeholder?: string;
+  defaultValue?:string;
+  onChange?: (value:string) => void;
+  separator?:string
+}
+
+export default class TagInput extends React.Component<ITagInputProps, { items: string[], input: string, focused: boolean }> {
   private container: any;
   private inputControl: any;
   private focusTimeoutId: any = undefined;
 
-  constructor(props: { className?: string, placeholder?: string, value?:string, onChange?: (value:string) => void }) {
+  constructor(props:ITagInputProps) {
     super(props);
 
     this.state = {
-      items: props.value ? props.value.split((this.props.separator) ? this.props.separator : " ") : [],
+      items: props.defaultValue ? props.defaultValue.split((this.props.separator) ? this.props.separator : " ") : [],
       input: "",
       focused: false
     };
@@ -65,11 +73,11 @@ export default class TagInput extends React.Component<{ className?: string, plac
     );
   }
 
-  handleInputChange(evt: React.ChangeEvent<HTMLInputElement>) {
+  private handleInputChange(evt: React.ChangeEvent<HTMLInputElement>) {
     this.setState({ input: evt.target.value });
   }
 
-  handleBlur() {
+  private handleBlur() {
 
     // focus tracking from https://medium.com/@jessebeach/dealing-with-focus-and-blur-in-a-composite-widget-in-react-90d3c3b49a9b
 
@@ -80,7 +88,7 @@ export default class TagInput extends React.Component<{ className?: string, plac
     }, 0);
   }
 
-  grabFocus() {
+  private grabFocus() {
     clearTimeout(this.focusTimeoutId);
 
     if (!this.state.focused) {
@@ -89,7 +97,7 @@ export default class TagInput extends React.Component<{ className?: string, plac
     }
   }
 
-  handleFocus() {
+  private handleFocus() {
     clearTimeout(this.focusTimeoutId);
 
     if (!this.state.focused) {
@@ -98,13 +106,13 @@ export default class TagInput extends React.Component<{ className?: string, plac
     }
   }
 
-  raiseChange(items:string[]){
+  private raiseChange(items:string[]){
     if (this.props.onChange){
       this.props.onChange(items.join((this.props.separator) ? this.props.separator : " "));
     }
   }
 
-  handleInputKeyDown(evt: React.KeyboardEvent<HTMLInputElement>) {
+  private handleInputKeyDown(evt: React.KeyboardEvent<HTMLInputElement>) {
     if (evt.keyCode === 13) {
       let inputControl: HTMLInputElement = evt.target as HTMLInputElement;
       const value: string = inputControl.value;
@@ -132,7 +140,7 @@ export default class TagInput extends React.Component<{ className?: string, plac
     }
   }
 
-  handleRemoveItem(index: number) {
+  private handleRemoveItem(index: number) {
     return () => {
       let items : string[] = this.state.items.filter((item, i) => i !== index);
       this.setState(state => ({
