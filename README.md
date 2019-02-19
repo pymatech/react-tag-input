@@ -30,12 +30,13 @@ Basic syntax for the component
 
 ### Props
 
-| _Prop_       | _Description_                                                           | _Default value_          | _Example_                        |
-| ------       | :---------------------------------------------------------------------: | :----------------------: | :------------------------------: |
-| allowNewTags | If *true* tag creation is allowed, otherwise existing tags must be used | *false*                  | true                             |
-| className    | CSS classes to apply to the outer element                               | *empty string*           | form-control                     |
-| defaultValue | Initial value used to populate the tags                                 | *empty string*           | Dodge Ford Chevy                 |
-| onChange     | Handler that receives the updated string value of the tags              | *undefined*              | { (value) => console.log(value)} |
-| placeholder  | Text to display when there are no tags                                  | *empty string*           | Enter tags...                    |
-| separator    | Separator to be used between items in the value prop                    | " "                      | ","                              |
-| tags         | List of accepted tags                                                   | *undefined*              | ["Dodge","Ford","Chevy"]         |
+| _Prop_              | _Description_                                                           | _Default value_          | _Example_                        |
+| ------------------- | :---------------------------------------------------------------------: | :----------------------: | :------------------------------: |
+| allowNewTags        | If *true* tag creation is allowed, otherwise existing tags must be used | *false*                  | true                             |
+| className           | CSS classes to apply to the outer element                               | *empty string*           | form-control                     |
+| defaultValue        | Initial value used to populate the tags                                 | *empty string*           | Dodge Ford Chevy                 |
+| onChange            | Handler that receives the updated string value of the tags              | *undefined*              | { (value) => console.log(value)} |
+| placeholder         | Text to display when there are no tags                                  | *empty string*           | Enter tags...                    |
+| separator           | Separator to be used between items in the value prop                    | " "                      | ","                              |
+| tags                | List of accepted tags                                                   | *undefined*              | ["Dodge","Ford","Chevy"]         |
+| emptyTagListMessage | Message to display when the tag list dropdown is empty                  | "No items found"         | "No car makes found..."          |
