@@ -34,7 +34,7 @@ class App extends Component {
                 <input type="text" className="form-control form-group" placeholder="Enter something here..." />
                 <p className="text-muted">Type in a tag below and press Enter to add it</p>
                 <TagInput className="form-control form-group" placeholder="Enter tags..." defaultValue="abc,def" separator="," onChange={(value) => console.log(value)} allowNewTags={true} />
-                <TagInput className="form-control form-group" placeholder="Make of car..." tags={carMakes} defaultValue="Ford Dodge" separator=" " onChange={(value) => console.log(value)} allowNewTags={false} emptyTagListMessage="No matching car makes..." />
+                <TagInput className="form-control form-group" placeholder="Make of car..." tags={carMakes} defaultValue="Ford Dodge" separator=" " onChange={(value) => console.log(value)} allowNewTags={false} emptyTagListMessage="No matching car makes..." truncateTagMenuAt={3} />
                 <input type="text" className="form-control form-group" placeholder="Enter something else here..." />
                 <input type="submit" value="Submit" />
               </div>

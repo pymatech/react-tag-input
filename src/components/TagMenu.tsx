@@ -8,6 +8,7 @@ interface Props {
     tagInput: TagInput;
     boundingClientObject: HTMLElement;
     onSelectTag: (tag: string) => void;
+    truncateAt?: number;
 }
 
 export default class TagMenu extends React.Component<Props, { style: {} }> {
@@ -83,6 +84,13 @@ export default class TagMenu extends React.Component<Props, { style: {} }> {
             let emptyList : string = this.props.tagInput.props.emptyTagListMessage ? this.props.tagInput.props.emptyTagListMessage : "No items found";
             return (<div className={"tag-menu"} style={this.state.style} >{emptyList}</div>);
         }
+        let truncated: number = 0;
+        if (this.props.truncateAt && this.props.truncateAt>0){
+            if (tags.length>this.props.truncateAt){
+                truncated = tags.length - this.props.truncateAt;
+                tags = tags.slice(0, this.props.truncateAt);
+            }
+        }
         return (
             <div className={"tag-menu"} style={this.state.style} tabIndex={-1} aria-role="list" >
                 {
@@ -90,6 +98,7 @@ export default class TagMenu extends React.Component<Props, { style: {} }> {
                         <TagItem key={index} tag={element} onSelectTag={this.selectTag} />
                     )
                 }
+                { truncated>0 && <span className="btn btn-secondary btn-small tag-menu-item" tabIndex={0} aria-role="listitem">+{truncated.toString()} more items</span> }
             </div>
         );
     }

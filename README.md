@@ -1,8 +1,16 @@
 # react-tag-input
 
-![](https://img.shields.io/github/release/pymatech/react-tag-input.svg?style=plastic)
-![](https://img.shields.io/npm/v/@pymatech/react-tag-input/latest.svg?style=plastic)
-![](https://img.shields.io/github/license/pymatech/react-tag-input.svg?style=plastic)
+<a href="https://github.com/pymatech/react-tag-input/releases/latest" target="\_parent">
+  <img alt="" src="https://img.shields.io/github/release/pymatech/react-tag-input.svg?style=plastic" />
+</a>
+
+<a href="https://www.npmjs.com/package/@pymatech/react-tag-input" target="\_parent">
+  <img alt="" src="https://img.shields.io/npm/v/@pymatech/react-tag-input/latest.svg?style=plastic" />
+</a>
+
+<a href="https://github.com/pymatech/react-tag-input/blob/master/LICENSE" target="\_parent">
+  <img alt="" src="https://img.shields.io/github/license/pymatech/react-tag-input.svg?style=plastic" />
+</a>
 
 A Bootstrap v4 CSS compatible tag input component for React
 
@@ -40,3 +48,4 @@ Basic syntax for the component
 | separator           | Separator to be used between items in the value prop                    | " "                      | ","                              |
 | tags                | List of accepted tags                                                   | *undefined*              | ["Dodge","Ford","Chevy"]         |
 | emptyTagListMessage | Message to display when the tag list dropdown is empty                  | "No items found"         | "No car makes found..."          |
+| truncateTagMenuAt   | Truncate the dropdown at x items and show that more items are available | *undefined*              | {10}                             |

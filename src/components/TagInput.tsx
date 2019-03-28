@@ -13,6 +13,7 @@ interface ITagInputProps {
   tags?: string[];
   allowNewTags?: boolean;
   emptyTagListMessage?: string;
+  truncateTagMenuAt?: number;
 }
 
 export default class TagInput extends React.Component<ITagInputProps, { items: string[], input: string, focused: boolean }> {
@@ -80,7 +81,7 @@ export default class TagInput extends React.Component<ITagInputProps, { items: s
             onKeyPress={this.handleInputKeyPress}
           />
         </div>
-        {this.props.tags && this.state.focused === true && this.state.input.length > 0 && this.props.tags.length > 0 && <TagMenu ref={this.tagMenu} tagInput={this} boundingClientObject={body} onSelectTag={this.selectTag} />}
+        {this.props.tags && this.state.focused === true && this.state.input.length > 0 && this.props.tags.length > 0 && <TagMenu ref={this.tagMenu} tagInput={this} boundingClientObject={body} onSelectTag={this.selectTag} truncateAt={this.props.truncateTagMenuAt} />}
       </div>
     );
   }
